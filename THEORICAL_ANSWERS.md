@@ -89,3 +89,52 @@
 - [ ] b. Put them in a configuration file, then include that file in the code everywhere that needs to access the database.
 - [ ] c. Put the credentials into a configuration file, then load them with a data service provider.
 - [x] d. Put them in a .env file, load data from it into a configuration system, request the credentials from a database service provider.
+
+
+# Scenario Analysis
+
+**Given a distributed system that experiences latencies and occasional failures in one of its microservices, how would you optimize it?Describe your approach to identifying the problem, possible solutions, and how you would ensure high availability and resilience.**
+
+## Enfoque para Optimizar un Sistema Distribuido con Problemas de Latencia y Fallos
+
+## Identificación y Diagnóstico:
+
+- Implementaría métricas detalladas usando herramientas como **Prometheus** y **Grafana** para monitorear:
+  - Tiempos de respuesta
+  - Tasas de error
+  - Uso de recursos (CPU, memoria, red)
+  - Patrones de tráfico
+
+- Utilizaría tracing distribuido (como **Jaeger** o **Zipkin**) para identificar cuellos de botella específicos.
+- Analizaría los logs centralizados para patrones de error recurrentes.
+
+## Soluciones Inmediatas:
+
+- Implementaría **Circuit Breakers** (usando **Hystrix** o **Resilience4j**) para prevenir cascada de fallos.
+- Configuraría timeouts apropiados y reintentos con **backoff exponencial**.
+- Agregaría **caching estratégico** para reducir la carga en el servicio problemático.
+
+## Soluciones a Medio Plazo:
+
+- Implementaría un patrón de **Bulkhead** para aislar fallos.
+- Agregaría **replicación del servicio** para distribuir la carga.
+- Consideraría una estrategia de **degradación elegante** para mantener funcionalidad básica durante fallos.
+
+## Alta Disponibilidad:
+
+- Implementaría **redundancia geográfica**.
+- Utilizaría **balanceadores de carga inteligentes**.
+- Configuraría **auto-scaling** basado en métricas de carga.
+- Implementaría **health checks robustos**.
+
+## Resistencia:
+
+- Desarrollaría **pruebas de caos** (**Chaos Engineering**) para validar la resistencia.
+- Implementaría **fallbacks** para operaciones críticas.
+- Mantendría una arquitectura de **eventos asíncrona** cuando sea posible.
+
+## Monitoreo Continuo:
+
+- Establecería **alertas proactivas** basadas en **SLOs**.
+- Implementaría **dashboards de monitoreo** en tiempo real.
+- Realizaría **revisiones regulares** de métricas y performance.
